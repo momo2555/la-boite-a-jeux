@@ -56,7 +56,7 @@ class _SimpleDropDownState extends State<SimpleDropDown> {
       contentPadding: const EdgeInsets.all(17),
 
       focusColor: Theme.of(context).primaryColorLight,
-      suffixIconColor: Theme.of(context).accentColor,
+      suffixIconColor: Theme.of(context).primaryColor,
 
       //labelText: widget.placeholder ?? '',
     );

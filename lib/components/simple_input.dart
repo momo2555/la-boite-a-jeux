@@ -120,7 +120,7 @@ class _SimpleInputState extends State<SimpleInput> {
             )
           : null,
       focusColor: Theme.of(context).primaryColorLight,
-      suffixIconColor: Theme.of(context).accentColor,
+      suffixIconColor: Theme.of(context).primaryColor,
 
       //labelText: widget.placeholder ?? '',
     );
@@ -172,7 +172,7 @@ class _SimpleInputState extends State<SimpleInput> {
             )
           : null,
       focusColor: Theme.of(context).primaryColorLight,
-      suffixIconColor: Theme.of(context).accentColor,
+      suffixIconColor: Theme.of(context).primaryColor,
 
       //labelText: widget.placeholder ?? '',
     );
@@ -228,7 +228,7 @@ class _SimpleInputState extends State<SimpleInput> {
             )
           : null,
       focusColor: Theme.of(context).primaryColorLight,
-      suffixIconColor: Theme.of(context).accentColor,
+      suffixIconColor: Theme.of(context).primaryColor,
 
       //labelText: widget.placeholder ?? '',
     );
