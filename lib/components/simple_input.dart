@@ -139,7 +139,7 @@ class _SimpleInputState extends State<SimpleInput> {
           fontWeight: FontWeight.w100),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        borderSide: BorderSide(),
+        borderSide: BorderSide(color: Colors.transparent)
       ),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -150,7 +150,7 @@ class _SimpleInputState extends State<SimpleInput> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
-      fillColor: Theme.of(context).primaryColorDark,
+      fillColor: Theme.of(context).colorScheme.surface,
       filled: true,
       contentPadding: const EdgeInsets.all(17),
       suffixIcon: widget.type == 'password'

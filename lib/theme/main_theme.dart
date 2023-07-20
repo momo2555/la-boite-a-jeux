@@ -38,6 +38,8 @@ class mainTheme {
         onBackground: PrimaryColorLight,
         surface: surface,
         onSurface: onSurface,
+        tertiary: lightText,
+        onTertiary: darkText,
 
         
       ),
@@ -60,7 +62,28 @@ class mainTheme {
       bottomAppBarTheme: base.bottomAppBarTheme.copyWith(
         elevation: 0,
       ),
-
+      textTheme: base.textTheme.copyWith(
+        bodyLarge: TextStyle(),
+        bodyMedium: TextStyle(),
+        bodySmall: TextStyle(),
+        displayLarge: TextStyle(),
+        displayMedium: TextStyle(),
+        displaySmall: TextStyle(),
+        headlineLarge: TextStyle(
+          fontFamily: "Irish Grover"
+        ), //title of the app
+        headlineMedium: TextStyle(
+          fontFamily: "Irish Grover"
+        ), 
+        headlineSmall: TextStyle(),
+        labelLarge: TextStyle(),
+        labelMedium: TextStyle(),
+        labelSmall: TextStyle(),
+        titleLarge: TextStyle(),
+        titleMedium: TextStyle(),
+        titleSmall: TextStyle(),
+        
+      )
       /*textTheme: base.textTheme.copyWith(
           titleLarge: base.textTheme.titleLarge?.copyWith(color: TextColor),
           bodyText1: base.textTheme.bodyText1?.copyWith(color: TextColor),

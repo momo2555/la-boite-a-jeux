@@ -24,11 +24,11 @@ class SimpleText extends StatefulWidget {
   final bool? cut;
   final String? font;
 
-  factory  SimpleText.veryBigIrish(String text, [color = 1]) {
-    return SimpleText(text: text, color: color,);
+  factory  SimpleText.veryBigIrish(String text, [color = 0]) {
+    return SimpleText(text: text, color: color, font: "Irish Grover", size: 55,);
   }
-  factory SimpleText.bigIrish(String text, [color = 1]) {
-    return SimpleText(text: text, color: color,);
+  factory SimpleText.bigIrish(String text, [color = 0]) {
+    return SimpleText(text: text, color: color, font: "Irish Grover", size: 40,);
   }
   factory SimpleText.blueTitle(String text) {
     return SimpleText(text: text,);
@@ -37,7 +37,8 @@ class SimpleText extends StatefulWidget {
     return SimpleText(text: text,);
   }
   factory SimpleText.label(String text) {
-    return SimpleText(text: text,);
+    text = text.toUpperCase();
+    return SimpleText(text: text, color: 2, size: 16, thick: 5,); 
   }
   factory SimpleText.name(String text) {
     return SimpleText(text: text,);
@@ -79,7 +80,7 @@ class _SimpleTextState extends State<SimpleText> {
     ];
     _thick = weightList[widget.thick??0];
     _color = Theme.of(context).primaryColorLight;
-    List<Color> colors = [Theme.of(context).primaryColorLight,Theme.of(context).primaryColor, Theme.of(context).primaryColorDark, Color.fromARGB(255, 124, 124, 124), Colors.red ];
+    List<Color> colors = [Theme.of(context).primaryColorDark,Theme.of(context).colorScheme.onSecondary, Theme.of(context).colorScheme.onTertiary, Theme.of(context).colorScheme.tertiary, Theme.of(context).colorScheme.error];
     _color = colors[widget.color??0];
     return Text(widget.text, 
       overflow: widget.cut ?? false ? TextOverflow.ellipsis : TextOverflow.visible,
