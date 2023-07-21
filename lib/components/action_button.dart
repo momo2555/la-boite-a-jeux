@@ -37,7 +37,7 @@ class ActionButton extends StatefulWidget {
   final IconData? icon;
   final Color? iconColor;
 
-  factory ActionButton.simpleBlue(text, action) {
+  factory ActionButton.simpleBlue(text, action, [wait = false]) {
     var context = globalNavigatorKey.currentContext;
     return ActionButton(
       text: text,
@@ -45,9 +45,10 @@ class ActionButton extends StatefulWidget {
       backColor: Theme.of(context!).colorScheme.secondary,
       filled: true,
       radius: 12,
+      wait: wait,
     );
   }
-  factory ActionButton.simpleYellow(text, action) {
+  factory ActionButton.simpleYellow(text, action, [wait = false]) {
     var context = globalNavigatorKey.currentContext;
     return ActionButton(
       text: text,
@@ -55,6 +56,7 @@ class ActionButton extends StatefulWidget {
       backColor: Theme.of(context!).primaryColor,
       filled: true,
       radius: 12,
+      wait: wait,
     );
   }
   factory ActionButton.floating(text, action, icon) {

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:legendapp/components/action_button.dart';
 import 'package:legendapp/components/simple_text.dart';
+import 'package:legendapp/controllers/user_connection.dart';
 import 'package:legendapp/utils/global_utils.dart';
+import 'package:legendapp/views/pages/main_blog_page.dart';
 import 'package:legendapp/views/pages/main_games_page.dart';
+import 'package:legendapp/views/pages/main_profile_page.dart';
 
 class PageInfo {
   final Widget page;
@@ -29,6 +32,7 @@ class UserHomePage extends StatefulWidget {
 
 class _UserHomePageState extends State<UserHomePage> {
   List<PageInfo> _pages = [];
+  UserConnection _userConnection = UserConnection();
   void _initPages() {
     if (_pages.length == 0) {
       _pages = [
@@ -37,13 +41,16 @@ class _UserHomePageState extends State<UserHomePage> {
           topBgColor: Theme.of(context).primaryColor,
           rightIcon: IconButton(
             onPressed: () {},
-            icon: Icon(
-              Icons.power_settings_new,
-              size: 40,
+            icon: IconButton(
+              icon: Icon(Icons.power_settings_new,
+              size: 40,),
+              onPressed: (){
+                _userConnection.logout();
+              },
             ),
             color: Theme.of(context).colorScheme.background,
           ),
-          page: MainGamesPage(),
+          page: MainProfilePage(),
           menu: Container(),
           floatingButton: ActionButton.floating("Mes messages", () {}, Icons.message),
         ),
@@ -52,9 +59,10 @@ class _UserHomePageState extends State<UserHomePage> {
           topBgColor: Theme.of(context).colorScheme.background,
           rightIcon: IconButton(
             onPressed: () {},
-            icon: Icon(
-              Icons.menu,
-              size: 40,
+            icon: IconButton(
+              icon: Icon(Icons.menu,
+              size: 40,),
+              onPressed: (){},
             ),
             color: Theme.of(context).colorScheme.onSecondary,
           ),
@@ -67,13 +75,14 @@ class _UserHomePageState extends State<UserHomePage> {
           topBgColor: Theme.of(context).colorScheme.background,
           rightIcon: IconButton(
             onPressed: () {},
-            icon: Icon(
-              Icons.menu,
-              size: 40,
+            icon: IconButton(
+              icon: Icon(Icons.menu,
+              size: 40,),
+              onPressed: (){},
             ),
             color: Theme.of(context).colorScheme.onSecondary,
           ),
-          page: MainGamesPage(),
+          page: MainBlogPage(),
           menu: Container(),
           floatingButton: ActionButton.floating("Publier", () {}, Icons.add),
         )

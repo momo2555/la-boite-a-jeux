@@ -10,6 +10,24 @@ class MainProfilePage extends StatefulWidget {
 class _MainProfilePageState extends State<MainProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Positioned(
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor
+                  ),
+                  
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    );
   }
 }

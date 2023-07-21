@@ -6,7 +6,7 @@ import 'package:legendapp/components/action_button.dart';
 import 'package:legendapp/components/simple_input.dart';
 import 'package:legendapp/components/simple_text.dart';
 import 'package:legendapp/controllers/user_connection.dart';
-
+import 'package:legendapp/utils/global_utils.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -18,6 +18,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   String _password = '';
   String _email = '';
+  bool connectionWait = false;
   UserConnection _userConnection = UserConnection();
 
   final GlobalKey<FormState> _signinKey = GlobalKey<FormState>();
@@ -59,25 +60,32 @@ class _SignInPageState extends State<SignInPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ActionButton.simpleBlue(
-            "Se connecter", () {
-              final form = _signinKey.currentState!;
-             
-              if (form.validate()) {
-                form.save();
-                print("coucou");
-                _userConnection.Authentification(_email, _password).then((value) {
-                  if (value.uid == "" && value.email == "") {
-                              Fluttertoast.showToast(
-                                  msg:
-                                      "Les identifiants que vous avez renseignés sont incorrectes");
-                            }
+          ActionButton.simpleBlue("Se connecter", () {
+            setState(() {
+              connectionWait = true;
+            });
+            final form = _signinKey.currentState!;
+
+            if (form.validate()) {
+              form.save();
+              _userConnection.Authentification(_email, _password).then((value) {
+                if (value.uid == "" && value.email == "") {
+                  Fluttertoast.showToast(
+                    msg:
+                        "Les identifiants que vous avez renseignés sont incorrectes",
+                    gravity: ToastGravity.TOP,
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                    textColor: Theme.of(context).colorScheme.background,
+                  );
+                } else {
+                  Globals.homeIndex.value = 1;
+                }
+                setState(() {
+                  connectionWait = false;
                 });
-              }
+              });
             }
-            
-        
-          )
+          }, connectionWait)
         ],
       ),
     );
@@ -88,7 +96,6 @@ class _SignInPageState extends State<SignInPage> {
     // TODO: implement initState
     super.initState();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    
   }
 
   @override
@@ -100,7 +107,9 @@ class _SignInPageState extends State<SignInPage> {
       floatingActionButton: Container(
         height: 60,
         child: ActionButton.floating(
-          "Besoin d'aide", () {}, Icons.help,
+          "Besoin d'aide",
+          () {},
+          Icons.help,
         ),
       ),
       body: SingleChildScrollView(
@@ -109,8 +118,6 @@ class _SignInPageState extends State<SignInPage> {
             Container(
               child: Center(
                 child: SingleChildScrollView(
-                  
-                  
                   child: Container(
                     padding: EdgeInsets.fromLTRB(110, 80, 110, 80),
                     decoration: BoxDecoration(
@@ -128,7 +135,7 @@ class _SignInPageState extends State<SignInPage> {
             Form(
               key: _signinKey,
               child: Padding(
-                key:const  ValueKey(1),
+                key: const ValueKey(1),
                 padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
                 child: Column(
                   children: [
