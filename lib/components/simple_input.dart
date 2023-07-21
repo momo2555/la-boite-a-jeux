@@ -149,6 +149,10 @@ class _SimpleInputState extends State<SimpleInput> {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderSide: BorderSide(
+          color: Theme.of(context).colorScheme.primary,
+          width: 2
+        ),
       ),
       fillColor: Theme.of(context).colorScheme.surface,
       filled: true,
@@ -173,7 +177,7 @@ class _SimpleInputState extends State<SimpleInput> {
           : null,
       focusColor: Theme.of(context).primaryColorLight,
       suffixIconColor: Theme.of(context).primaryColor,
-
+      
       //labelText: widget.placeholder ?? '',
     );
   }
@@ -201,7 +205,7 @@ class _SimpleInputState extends State<SimpleInput> {
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.all(Radius.circular(0)),
         borderSide: BorderSide(
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.secondary,
           width: 2
         ),
       ),
@@ -249,7 +253,7 @@ class _SimpleInputState extends State<SimpleInput> {
     return TextFormField(
       //textAlign: TextAlign.center,
       controller: widget.controller,
-      style: TextStyle(color: (widget.style??"default")=="light"?Theme.of(context).primaryColorDark:Theme.of(context).primaryColorLight),
+      style: TextStyle(color: (widget.style??"default")=="light"?Theme.of(context).primaryColorDark:Theme.of(context).colorScheme.onTertiary),
       decoration: _decoration(),
       onChanged: (val) {
         value = val;
@@ -296,7 +300,7 @@ class _SimpleInputState extends State<SimpleInput> {
   Widget _multilineInput() {
     return TextFormField(
       controller: widget.controller,
-      style: TextStyle(color: (widget.style??"default")=="light"?Theme.of(context).primaryColorDark:Theme.of(context).primaryColorLight),
+      style: TextStyle(color: (widget.style??"default")=="light"?Theme.of(context).primaryColorDark:Theme.of(context).colorScheme.onTertiary),
       decoration: _decoration(),
       maxLines: widget.maxLines ?? 5,
       minLines: widget.minLines ?? 3,
@@ -320,7 +324,7 @@ class _SimpleInputState extends State<SimpleInput> {
     return TextFormField(
       controller: widget.controller,
       //textAlign: TextAlign.center,
-      style: TextStyle(color: (widget.style??"default")=="light"?Theme.of(context).primaryColorDark:Theme.of(context).primaryColorLight),
+      style: TextStyle(color: (widget.style??"default")=="light"?Theme.of(context).primaryColorDark:Theme.of(context).colorScheme.onTertiary),
       decoration: _decoration(),
       keyboardType: TextInputType.number,
       onChanged: (val) {
@@ -339,7 +343,7 @@ class _SimpleInputState extends State<SimpleInput> {
   }
   Widget _spinboxInput () {
     return SpinBox(
-      textStyle:  TextStyle(color: (widget.style??"default")=="light"?Theme.of(context).primaryColorDark:Theme.of(context).primaryColorLight),
+      textStyle:  TextStyle(color: (widget.style??"default")=="light"?Theme.of(context).primaryColorDark:Theme.of(context).colorScheme.onTertiary),
       decoration: _decoration(),
       decimals: 2,
        //acceleration: 0.01,
@@ -357,7 +361,7 @@ class _SimpleInputState extends State<SimpleInput> {
     return TextFormField(
       //textAlign: TextAlign.center,
       controller: widget.controller,
-      style: TextStyle(color: Theme.of(context).primaryColorLight),
+      style: TextStyle(color: Theme.of(context).colorScheme.onTertiary),
       decoration: _decoration(),
       onChanged: (val) {
         value = val;

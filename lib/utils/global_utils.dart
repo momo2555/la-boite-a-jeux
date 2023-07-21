@@ -13,7 +13,7 @@ class Globals {
   /*static RestaurantModel selectedRestaurantEdition = RestaurantModel();
   static List<CommandModel> commandStack = [];*/
   static bool commandPopupOn = false;
-  static var homeIndex =  ValueNotifier<int>(0);
+  static var homeIndex =  ValueNotifier<int>(1);
   static var userPosition = ValueNotifier<List<num>>([0.0,0.0]);
   static var userPositonComment = ValueNotifier<String>("");
   static var userAddress = ValueNotifier<String>("");

@@ -8,7 +8,7 @@ import 'package:legendapp/theme/main_theme.dart';
 import 'package:legendapp/views/user_home_page.dart';
 //import 'package:legendapp/vues/game/monitor/monitorHome.dart';
 import 'package:legendapp/views/signin_page.dart';
-
+final globalNavigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
         title: 'Legend App',
         theme: mainTheme.defaultTheme,
+        navigatorKey: globalNavigatorKey,
      );
   }
 }
@@ -47,7 +48,7 @@ class RouteGenerator {
                     if (snapshot.connectionState == ConnectionState.active) {
                       if (snapshot.hasData) {
                         //if a user is connected show the client page
-                        return Container();
+                        return UserHomePage();
                         
                       } else {
                         //if not showing sign in page

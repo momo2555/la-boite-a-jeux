@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:legendapp/components/action_button.dart';
 import 'package:legendapp/components/simple_input.dart';
 import 'package:legendapp/components/simple_text.dart';
-import 'package:legendapp/models/user_model.dart';
 import 'package:legendapp/controllers/user_connection.dart';
-import 'package:legendapp/views/user_home_page.dart';
+
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -17,6 +18,9 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
   String _password = '';
   String _email = '';
+  UserConnection _userConnection = UserConnection();
+
+  final GlobalKey<FormState> _signinKey = GlobalKey<FormState>();
 
   Widget _passwordEntry() {
     return Column(
@@ -26,6 +30,9 @@ class _SignInPageState extends State<SignInPage> {
         SimpleInput(
           style: "filled",
           type: "password",
+          onChange: (value) {
+            _password = value;
+          },
         )
       ],
     );
@@ -35,16 +42,45 @@ class _SignInPageState extends State<SignInPage> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SimpleText.label("Login"),
+        SimpleText.label("E-mail"),
         SimpleInput(
           style: "filled",
+          onChange: (value) {
+            _email = value;
+          },
         )
       ],
     );
   }
 
   Widget _submitButton() {
-    return Container();
+    return Container(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          ActionButton.simpleBlue(
+            "Se connecter", () {
+              final form = _signinKey.currentState!;
+             
+              if (form.validate()) {
+                form.save();
+                print("coucou");
+                _userConnection.Authentification(_email, _password).then((value) {
+                  if (value.uid == "" && value.email == "") {
+                              Fluttertoast.showToast(
+                                  msg:
+                                      "Les identifiants que vous avez renseignés sont incorrectes");
+                            }
+                });
+              }
+            }
+            
+        
+          )
+        ],
+      ),
+    );
   }
 
   @override
@@ -61,6 +97,12 @@ class _SignInPageState extends State<SignInPage> {
       /*appBar: AppBar(
         elevation: 0,
       ),*/
+      floatingActionButton: Container(
+        height: 60,
+        child: ActionButton.floating(
+          "Besoin d'aide", () {}, Icons.help,
+        ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -70,7 +112,7 @@ class _SignInPageState extends State<SignInPage> {
                   
                   
                   child: Container(
-                    padding: EdgeInsets.fromLTRB(100, 80, 100, 80),
+                    padding: EdgeInsets.fromLTRB(110, 80, 110, 80),
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                     ),
@@ -83,23 +125,27 @@ class _SignInPageState extends State<SignInPage> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  _emailEntry(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  _passwordEntry(),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
-                  _submitButton(),
-                ],
+            Form(
+              key: _signinKey,
+              child: Padding(
+                key:const  ValueKey(1),
+                padding: const EdgeInsets.fromLTRB(50, 0, 50, 20),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    _emailEntry(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    _passwordEntry(),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    _submitButton(),
+                  ],
+                ),
               ),
             ),
           ],
