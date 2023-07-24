@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:legendapp/components/action_button.dart';
 import 'package:legendapp/components/simple_text.dart';
 import 'package:legendapp/controllers/user_connection.dart';
+import 'package:legendapp/utils/dialog_utils.dart';
 import 'package:legendapp/utils/global_utils.dart';
 import 'package:legendapp/views/pages/main_blog_page.dart';
 import 'package:legendapp/views/pages/main_games_page.dart';
@@ -42,17 +43,43 @@ class _UserHomePageState extends State<UserHomePage> {
           rightIcon: IconButton(
             onPressed: () {},
             icon: IconButton(
-              icon: Icon(Icons.power_settings_new,
-              size: 40,),
-              onPressed: (){
-                _userConnection.logout();
+              icon: Icon(
+                Icons.power_settings_new,
+                size: 40,
+              ),
+              onPressed: () {
+                ButtonInfo lbutton = ButtonInfo(
+                    title: "Annuler",
+                    action: () {
+                      Globals.goBack(context);
+                    });
+                ButtonInfo rbutton = ButtonInfo(
+                    title: "Confirmer",
+                    action: () {
+                      _userConnection.logout();
+                      Globals.goBack(context);
+                    });
+                showSimpleDialog(
+                  context,
+                  lbutton,
+                  rbutton,
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SimpleText.simple(
+                          "Vous êtes sur le point de vous déconnecter"),
+                    ],
+                  ),
+                  logOutCaption(context)
+                );
               },
             ),
             color: Theme.of(context).colorScheme.background,
           ),
           page: MainProfilePage(),
           menu: Container(),
-          floatingButton: ActionButton.floating("Mes messages", () {}, Icons.message),
+          floatingButton:
+              ActionButton.floating("Mes messages", () {}, Icons.message),
         ),
         PageInfo(
           title: SimpleText.bigIrish("Jouer", 1),
@@ -60,15 +87,18 @@ class _UserHomePageState extends State<UserHomePage> {
           rightIcon: IconButton(
             onPressed: () {},
             icon: IconButton(
-              icon: Icon(Icons.menu,
-              size: 40,),
-              onPressed: (){},
+              icon: Icon(
+                Icons.menu,
+                size: 40,
+              ),
+              onPressed: () {},
             ),
             color: Theme.of(context).colorScheme.onSecondary,
           ),
           page: MainGamesPage(),
           menu: Container(),
-          floatingButton: ActionButton.floating("Plus de jeux", () {}, Icons.add),
+          floatingButton:
+              ActionButton.floating("Plus de jeux", () {}, Icons.add),
         ),
         PageInfo(
           title: SimpleText.bigIrish("Blog", 1),
@@ -76,9 +106,11 @@ class _UserHomePageState extends State<UserHomePage> {
           rightIcon: IconButton(
             onPressed: () {},
             icon: IconButton(
-              icon: Icon(Icons.menu,
-              size: 40,),
-              onPressed: (){},
+              icon: Icon(
+                Icons.menu,
+                size: 40,
+              ),
+              onPressed: () {},
             ),
             color: Theme.of(context).colorScheme.onSecondary,
           ),

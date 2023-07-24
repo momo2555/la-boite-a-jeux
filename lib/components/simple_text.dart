@@ -84,6 +84,7 @@ class SimpleText extends StatefulWidget {
   }
   factory SimpleText.simple(String text) {
     return SimpleText(
+      color: 2,
       text: text,
     );
   }

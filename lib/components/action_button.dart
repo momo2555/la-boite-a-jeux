@@ -54,6 +54,7 @@ class ActionButton extends StatefulWidget {
       text: text,
       action: action,
       backColor: Theme.of(context!).primaryColor,
+      color: Theme.of(context).primaryColorDark,
       filled: true,
       radius: 12,
       wait: wait,

@@ -29,7 +29,8 @@ class CacheStorageController {
   FirebaseStorage fireStorage = FirebaseStorage.instance;
 
   Future<File> downloadFromCloud(
-      String folderPath, String fileName, LocalSaveMode mode) async {
+      String folderPath, String fileName,[ LocalSaveMode mode = LocalSaveMode.userDocuments]) async {
+
     Reference downloadRef = fireStorage.ref(folderPath + fileName);
     print(folderPath + fileName);
 

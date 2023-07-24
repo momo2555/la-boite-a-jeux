@@ -15,14 +15,22 @@ class MainProfilePage extends StatefulWidget {
 class _MainProfilePageState extends State<MainProfilePage> {
   ProfileController _profileController = ProfileController();
   UserProfileModel? _profile;
+  bool _changeState = true;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _profileController.getUserProfile.then((profile) {
+    _profileController.getUserProfile.then((profile) async {
       setState(() {
         _profile = profile;
       });
+      if(_profile!=null) {
+        await _profileController.getUserProfileImage(_profile!);
+        setState(() {
+          
+        });
+      }
+      
       
     });
     
@@ -54,8 +62,9 @@ class _MainProfilePageState extends State<MainProfilePage> {
                   ),
                   child: Center(
                     child: CircleAvatar(
-                      backgroundColor: Colors.red,
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
                       radius: 65,
+                      foregroundImage: _profile?.userProfileImageFile!=null? FileImage(_profile!.userProfileImageFile):null,
                     ),
                   ),
                 ),
@@ -69,5 +78,19 @@ class _MainProfilePageState extends State<MainProfilePage> {
         ],
       ),
     );
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _changeState = false;
+    super.dispose();
+  }
+  @override
+  void setState(VoidCallback fn) {
+    // TODO: implement setState
+    if(_changeState){
+      super.setState(fn);
+    }
+    
   }
 }
