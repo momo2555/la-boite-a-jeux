@@ -7,7 +7,7 @@ class UserConnection {
   Stream<UserModel> get userStream {
     return _auth
         .authStateChanges()
-        .asyncMap((user) => UserModel(user?.email, '', user?.uid));
+        .asyncMap((user) => UserModel(user?.email, '', '', user?.uid));
   }
 
   Future<bool> get ifUserConnected async {
@@ -17,7 +17,7 @@ class UserConnection {
 
   Future<UserModel> get UserConnected async {
     User? user = _auth.currentUser;
-    UserModel userModel = UserModel(user?.email, '', user?.uid);
+    UserModel userModel = UserModel(user?.email, '','', user?.uid);
     return userModel;
   }
 
@@ -30,11 +30,11 @@ class UserConnection {
       String userId = "";
       userId = _userCredential.user!.uid;
       print(userId);
-      UserModel _user = UserModel(email, password, userId);
+      UserModel _user = UserModel(email,'', password, userId);
       return _user;
     } catch (e) {
       //return a empty user
-      return new UserModel('', '', '');
+      return new UserModel('', '','', '');
     }
   }
 

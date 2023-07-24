@@ -62,6 +62,9 @@ class SimpleText extends StatefulWidget {
   factory SimpleText.name(String text) {
     return SimpleText(
       text: text,
+      color: 2,
+      thick: 3,
+      size: 25,
     );
   }
   factory SimpleText.date(String text) {
