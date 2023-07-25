@@ -36,19 +36,19 @@ class ResidenceModel {
   }
 
   get residenceAddress  {
-    _residenceAddress;
+    return _residenceAddress;
   }
    get residenceCity  {
-    _residenceCity;
+    return _residenceCity;
   }
    get residenceGroup  {
-    _residenceGroup;
+   return _residenceGroup;
   }
    get residenceName  {
-    _residenceName;
+    return _residenceName;
   }
    get residenceZipCode  {
-    _residenceZipCode;
+    return _residenceZipCode;
   }
   get residenceImage  {
     return _residenceImage;

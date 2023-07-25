@@ -29,6 +29,7 @@ class ProfileController {
     userProfile.email = profileData.get('userMail');
     userProfile.userResidence = profileData.get('userResidence');
     userProfile.userDate = profileData.get('userDate');
+    userProfile.userPosition = profileData.get('userPosition');
     //get the link of the profile image
     /*Reference imgRef = fireStorage.ref('userImages/'+(userProfile.userProfileImage??''));
     userProfile.userProfileImageURL = await imgRef.getDownloadURL();*/
@@ -54,7 +55,7 @@ class ProfileController {
     userProfile.email = profileData.get('userMail');
     userProfile.userResidence = profileData.get('userResidence');
     userProfile.userDate = profileData.get('userDate');
-
+    userProfile.userPosition = profileData.get('userPosition');
     //get the link of the profile image
 
     //Reference imgRef = fireStorage.ref('userImages/'+(userProfile.userProfileImage??''));

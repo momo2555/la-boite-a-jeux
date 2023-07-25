@@ -155,7 +155,7 @@ class ResidenceController {
     if (residence?.residenceImageFile != null) {
       return DecorationImage(
         image: FileImage(residence?.residenceImageFile),
-        fit: BoxFit.cover,
+        fit: BoxFit.fill,
         alignment: Alignment.center,
       );
     } else {

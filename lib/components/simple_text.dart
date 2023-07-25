@@ -86,6 +86,7 @@ class SimpleText extends StatefulWidget {
     return SimpleText(
       color: 2,
       text: text,
+      center: false,
     );
   }
   @override

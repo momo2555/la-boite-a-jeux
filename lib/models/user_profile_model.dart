@@ -80,6 +80,17 @@ class UserProfileModel extends UserModel {
     return "$userFirstName $userLastName";
   }
 
+  get userPositionName {
+    String value = "";
+    switch(_userPosition) {
+      case "anim":
+        value = "Animateur en résidence Seniors";
+        break;
+      
+    }
+    return value;
+  }
+
   Map<String, dynamic> toObject() {
     return {
       "userFirstName" : _userFirstName,
