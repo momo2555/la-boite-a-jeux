@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legendapp/components/simple_text.dart';
-import 'package:legendapp/controllers/profil_controller.dart';
+import 'package:legendapp/controllers/profile_controller.dart';
 import 'package:legendapp/controllers/user_connection.dart';
 import 'package:legendapp/models/user_profile_model.dart';
 
