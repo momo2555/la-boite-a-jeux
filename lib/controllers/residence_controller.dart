@@ -1,15 +1,20 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:legendapp/controllers/cache_storage_controller.dart';
+import 'package:legendapp/controllers/profile_controller.dart';
 import 'package:legendapp/controllers/user_connection.dart';
 import 'package:legendapp/models/residence_model.dart';
 import 'package:legendapp/models/user_model.dart';
+import 'package:legendapp/models/user_profile_model.dart';
 import 'package:legendapp/utils/image_utils.dart';
 
 class ResidenceController {
   FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   UserConnection _userConnection = UserConnection();
+  ProfileController _profileController = ProfileController();
   CacheStorageController _cloudDownloader = CacheStorageController();
 
   void addResidence(ResidenceModel newResidence) async {
@@ -40,10 +45,18 @@ class ResidenceController {
   }
 
 
-  Future<ResidenceModel> getUserResidence(UserModel user) {
-    var ref =  _fireStore.collection('residences').where("residenceId", isEqualTo: user.uid).get();
-    
+  Future<ResidenceModel> getUserResidence(UserProfileModel user) async {
+    var doc = await _fireStore.collection('residences').doc(user.userResidence);
+    ResidenceModel residence = await getResidenceById(doc.id, true);
+    return residence;
   }
+
+
+  Future<ResidenceModel> getConnectedUserResidence() async {
+    UserProfileModel user = await _profileController.getUserProfile;
+    return await getUserResidence(user);
+  }
+
   Future<ResidenceModel> getResidenceById(String residenceId, bool withPicture) async {
     ResidenceModel residence = ResidenceModel();
     DocumentReference residenceRef =
@@ -92,7 +105,7 @@ class ResidenceController {
       String? residenceImageStorageName = residence.residenceImage;
      
       File fileImg = await _cloudDownloader.downloadFromCloud('residences/', (residenceImageStorageName as String), LocalSaveMode.userDocuments);
-      residence.residenceImage = fileImg;
+      residence.residenceImageFile = fileImg;
     
       
     return residence;
@@ -119,7 +132,7 @@ class ResidenceController {
     
     
     if(residence.residenceImage!=null) {
-      residence.residenceImage = getFileName(residence.residenceId, residence.residenceImage as File);
+      residence.residenceImage = getFileName(residence.residenceId, residence.residenceImageFile as File);
     }
     
   }
@@ -137,4 +150,18 @@ class ResidenceController {
     editResidence(residence);
 
   }
+  static DecorationImage? decorationImage(ResidenceModel? residence) {
+    if(residence!=null) print(residence.residenceImage);
+    if (residence?.residenceImageFile != null) {
+      return DecorationImage(
+        image: FileImage(residence?.residenceImageFile),
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
+      );
+    } else {
+      return null;
+    }
+  }
 }
+
+ 
