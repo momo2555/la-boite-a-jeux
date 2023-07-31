@@ -89,6 +89,15 @@ class SimpleText extends StatefulWidget {
       center: false,
     );
   }
+  factory SimpleText.darkTitle(String text) {
+    return SimpleText(
+      color: 2,
+      text: text,
+      center: false,
+      size: 20,
+      thick: 6,
+    );
+  }
   @override
   State<SimpleText> createState() => _SimpleTextState();
 }

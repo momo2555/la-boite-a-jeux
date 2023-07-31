@@ -4,7 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:legendapp/controllers/user_connection.dart';
+import 'package:legendapp/models/game_model.dart';
 import 'package:legendapp/theme/main_theme.dart';
+import 'package:legendapp/views/pages/game_page.dart';
 import 'package:legendapp/views/user_home_page.dart';
 //import 'package:legendapp/vues/game/monitor/monitorHome.dart';
 import 'package:legendapp/views/signin_page.dart';
@@ -59,11 +61,12 @@ class RouteGenerator {
                     return Container();
                   },
                 ));
-      /*case '/signup_code':
+      
+      case '/game':
         return MaterialPageRoute(
-            builder: (context) => SignupCodePage(
-                  user: settings.arguments as UserProfileModel,
-                ));*/
+            builder: (context) => GamePage(
+              game: settings.arguments as GameModel,
+                ));
      
       /* case '/newPost/confirmation':
         return MaterialPageRoute(

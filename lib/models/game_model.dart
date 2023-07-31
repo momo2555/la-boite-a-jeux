@@ -1,63 +1,70 @@
+import 'dart:io';
+
 class GameModel {
-  late String nameId;
-  late String name;
-  late String iconUrl;
-  late String bannerUrl;
-  late String description;
-  late String monitorPage;
-  late String controllerPage;
+  late String _gameId;
+  late String _gameName;
+  late String _gameImage;
+  late String _gameCoverImage;
+  late String _gameDescription;
+  
+  File? _gameImageFile;
+  File? _gameCoverImageFile;
+  //late String monitorPage;
+  //late String controllerPage;
   GameModel() {}
-  set setNameid(value) {
-    nameId = value;
+  set gameId(value) {
+    _gameId = value;
   }
-  set setName(value) {
-    name = value;
+  set gameName(value) {
+    _gameName = value;
   }
-  set setIconUrl(value) {
-    iconUrl = value;
+  set gameImage(value) {
+    _gameImage = value;
   }
-  set setBannerUrl(value) {
-    bannerUrl = value;
+  set gameCoverImage(value) {
+    _gameCoverImage = value;
   }
-  set setDescription(value) {
-    description = value;
+  set gameDescription(value) {
+    _gameDescription = value;
   }
-  set setMonitorPage(value) {
-    monitorPage = value;
+  set gameImageFile(value) {
+    _gameImageFile = value;
   }
-  set setControllerPage(value) {
-    controllerPage = value;
+  set gameCoverImageFile(value) {
+    _gameCoverImageFile = value;
   }
-  String get getNameId {
-    return nameId;
+
+
+  get gameId  {
+    return _gameId;
   }
-  String get getName {
-    return name;
+  get gameName  {
+    return _gameName;
   }
-  String get getIconUrl {
-    return iconUrl;
+  get gameImage  {
+    return _gameImage;
   }
-  String get getBannerUrl {
-    return bannerUrl;
+  get gameCoverImage  {
+    return _gameCoverImage;
   }
-  String get getDescription{
-    return description;
+  get gameDescription  {
+    return _gameDescription;
   }
-   String get getMonitorPage {
-    return monitorPage;
+  get gameImageFile  {
+    return _gameImageFile;
   }
-  String get getControllerPage {
-    return controllerPage;
+  get gameCoverImageFile  {
+    return _gameCoverImageFile;
   }
 
   Map<String, dynamic> toObject () {
     return {
-      "gameId" : nameId,
-      "monitor" : monitorPage,
-      "controller" : controllerPage,
-      "banner": bannerUrl,
-      "icon" : iconUrl,
-      "name" : name,
+      "gameId" : _gameId,
+      "gameName" : _gameName,
+      "gameImage" : _gameImage,
+      "gameCoverImage": _gameCoverImage,
+      "gameDescription" : _gameDescription,
+      
     };
   }
   

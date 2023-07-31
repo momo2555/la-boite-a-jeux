@@ -20,6 +20,7 @@ class ActionButton extends StatefulWidget {
     this.wait,
     this.icon,
     this.iconColor,
+    this.topBottomPadding,
   }) : super(key: key);
   final TextStyle? textStyle;
   final bool? filled;
@@ -36,6 +37,7 @@ class ActionButton extends StatefulWidget {
   final bool? wait;
   final IconData? icon;
   final Color? iconColor;
+  final double? topBottomPadding;
 
   factory ActionButton.simpleBlue(text, action, [wait = false]) {
     var context = globalNavigatorKey.currentContext;
@@ -72,6 +74,19 @@ class ActionButton extends StatefulWidget {
       icon: icon,
     );
   }
+  factory ActionButton.squared(text, action, icon) {
+    var context = globalNavigatorKey.currentContext;
+    return ActionButton(
+      text: text,
+      action: action,
+      backColor: Theme.of(context!).primaryColor,
+      filled: true,
+      radius: 0,
+      color: Theme.of(context).primaryColorDark,
+      icon: icon,
+      topBottomPadding: 5,
+    );
+  }
 
   @override
   State<ActionButton> createState() => _ActionButtonState();
@@ -79,6 +94,7 @@ class ActionButton extends StatefulWidget {
 
 class _ActionButtonState extends State<ActionButton> {
   Widget _button() {
+    double topBottomPadding = (widget.topBottomPadding!=null)?widget.topBottomPadding!:16.0;
     return OutlinedButton(
       onPressed: () {
         widget.action != null ? widget.action!() : () {};
@@ -124,7 +140,7 @@ class _ActionButtonState extends State<ActionButton> {
                 : Colors.transparent,
           ),
           padding: MaterialStateProperty.all(
-              const EdgeInsets.fromLTRB(30, 16, 30, 16)),
+               EdgeInsets.fromLTRB(30, topBottomPadding, 30, topBottomPadding)),
           shape: (widget.radius ?? 0.0) > 0
               ? MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legendapp/components/simple_text.dart';
-import 'package:legendapp/components/userDetailsBloc.dart';
+import 'package:legendapp/components/user_details_bloc.dart';
 import 'package:legendapp/controllers/profile_controller.dart';
 import 'package:legendapp/controllers/residence_controller.dart';
 import 'package:legendapp/controllers/user_connection.dart';
