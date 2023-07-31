@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:legendapp/components/action_button.dart';
+import 'package:legendapp/components/monitor_list_dialog.dart';
 import 'package:legendapp/components/simple_text.dart';
 import 'package:legendapp/controllers/game_controller.dart';
+import 'package:legendapp/controllers/monitor_controller.dart';
 import 'package:legendapp/models/game_model.dart';
 import 'package:legendapp/utils/color_utils.dart';
 
@@ -75,7 +77,12 @@ class _GamePageState extends State<GamePage> {
                   top: 210,
                   right: 30,
                   child:
-                      ActionButton.squared("Lancer", () {}, Icons.play_arrow),
+                      ActionButton.squared("Lancer", () {
+                        showDialog(context: context, builder: (BuildContext context){
+                        return MonitorListDialog(game: widget.game);
+                      });
+
+                      }, Icons.play_arrow),
                 ),
               ],
             ),
@@ -89,7 +96,7 @@ class _GamePageState extends State<GamePage> {
             Container(
               width: double.infinity,
               height: 220,
-              color: ColorUtils.primary,
+              color: ColorUtils.secondary,
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),

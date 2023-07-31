@@ -5,11 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:legendapp/controllers/user_connection.dart';
 import 'package:legendapp/models/game_model.dart';
+import 'package:legendapp/models/monitor_model.dart';
 import 'package:legendapp/theme/main_theme.dart';
+import 'package:legendapp/views/pages/game_control_screen_page.dart';
 import 'package:legendapp/views/pages/game_page.dart';
 import 'package:legendapp/views/user_home_page.dart';
 //import 'package:legendapp/vues/game/monitor/monitorHome.dart';
 import 'package:legendapp/views/signin_page.dart';
+
 final globalNavigatorKey = GlobalKey<NavigatorState>();
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,16 +30,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
-        title: 'Legend App',
-        theme: mainTheme.defaultTheme,
-        navigatorKey: globalNavigatorKey,
-     );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/',
+      onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
+      title: 'Legend App',
+      theme: mainTheme.defaultTheme,
+      navigatorKey: globalNavigatorKey,
+    );
   }
 }
+
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     UserConnection _userConnection = UserConnection();
@@ -51,7 +55,6 @@ class RouteGenerator {
                       if (snapshot.hasData) {
                         //if a user is connected show the client page
                         return UserHomePage();
-                        
                       } else {
                         //if not showing sign in page
                         return SignInPage();
@@ -61,14 +64,20 @@ class RouteGenerator {
                     return Container();
                   },
                 ));
-      
+
       case '/game':
         return MaterialPageRoute(
             builder: (context) => GamePage(
-              game: settings.arguments as GameModel,
+                  game: settings.arguments as GameModel,
                 ));
-     
-      /* case '/newPost/confirmation':
+
+      case '/game_control_screen':
+      List<dynamic> args = settings.arguments as List;
+        return MaterialPageRoute(
+            builder: (context) => GameControlScreenPage(
+                  game: args[0] as GameModel,
+                  monitor: args[1] as MonitorModel,
+                )); /* case '/newPost/confirmation':
         return MaterialPageRoute(
             builder: (context) => const NewPostConfirmationPage());
       case '/post':

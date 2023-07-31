@@ -47,6 +47,8 @@ class SimpleText extends StatefulWidget {
   }
   factory SimpleText.yellowTitle(String text) {
     return SimpleText(
+      size: 18,
+      thick: 5,
       text: text,
     );
   }
