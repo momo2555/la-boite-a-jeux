@@ -64,12 +64,15 @@ class _GamePageState extends State<GamePage> {
                 Positioned(
                   top: 224,
                   left: 34,
-                  child: Container(
-                    width: 96,
-                    height: 96,
-                    decoration: BoxDecoration(
-                      image: GameController.decorationImage(widget.game),
-                      borderRadius: BorderRadius.circular(5),
+                  child: Hero(
+                    tag: widget.game.gameId,
+                    child: Container(
+                      width: 96,
+                      height: 96,
+                      decoration: BoxDecoration(
+                        image: GameController.decorationImage(widget.game),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
                     ),
                   ),
                 ),

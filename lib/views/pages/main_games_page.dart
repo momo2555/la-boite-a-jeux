@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legendapp/components/game_tile.dart';
 import 'package:legendapp/components/simple_text.dart';
 import 'package:legendapp/controllers/game_controller.dart';
 import 'package:legendapp/models/game_model.dart';
@@ -19,34 +20,12 @@ class _MainGamesPageState extends State<MainGamesPage> {
     return StreamBuilder(
       stream: _gameController.getConnectedUserGame(),
       builder: (context, snapshot) {
-        print(snapshot.data);
         if (snapshot.hasData) {
-          List<Widget> gameTiles = snapshot.data!.map((GameModel e) => GridTile(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(context, "/game", arguments: e);
-                  },
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: GameController.decorationImage(e)
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: SimpleText.simple(e.gameName),
-                      )
-                    ],
-                  ),
-                ),
-              )).toList();
+          List<Widget> gameTiles = snapshot.data!.map((GameModel game) => GameTile(game: game)).toList();
 
           return GridView.count(
             padding: EdgeInsets.all(15),
-            crossAxisCount: 4 ,
+            crossAxisCount: 5,
             childAspectRatio: 0.8,
             mainAxisSpacing: 10,
             crossAxisSpacing: 10,

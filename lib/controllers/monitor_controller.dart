@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:http/http.dart' as http;
 
+import 'package:legendapp/models/game_model.dart';
 import 'package:legendapp/models/monitor_model.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:udp/udp.dart';
@@ -9,7 +11,8 @@ import 'package:udp/udp.dart';
 class MonitorController {
   //monitor detection class
   List<MonitorModel> monitorsList = [];
-  StreamController<List<MonitorModel>> monitorListStreamController = StreamController<List<MonitorModel>>();
+  StreamController<List<MonitorModel>> monitorListStreamController =
+      StreamController<List<MonitorModel>>();
   void runDeviceClient() async {
     var result = '';
 
@@ -47,7 +50,6 @@ class MonitorController {
       }),
     ]);
 
-
     // receiving\listening
 
     // close the UDP instances and their sockets.
@@ -65,45 +67,54 @@ class MonitorController {
     monitorsList.add(monitor);
   }
 
-
-   void runDeviceServer() {
-    
+  void runDeviceServer() {
     InternetAddress senderAddress = InternetAddress.anyIPv4;
-    Future.wait([RawDatagramSocket.bind(InternetAddress.anyIPv4, 2222)]).then((values) {
-    RawDatagramSocket udpSocket = values[0];
-    udpSocket.listen((RawSocketEvent e) async {
-      print(e);
-     
-      switch(e) {
-        case RawSocketEvent.read :
-          Datagram? dg = udpSocket.receive();
-          print('coucou');
-          if(dg != null) {
-            print(Utf8Codec().decode(dg.data));
-            print(dg.address);
-            senderAddress = dg.address;
-            udpSocket.writeEventsEnabled = true;
-          }
-          
-          
-          break;
-        case RawSocketEvent.write : 
-          final info = NetworkInfo();
-          var ip = await info.getWifiIP();
-          Map<String, dynamic> objectToSend = {
-            "server": true,
-            "name": "Screen phone A",
-            "ip": ip
-          };
-          String dataToSend = jsonEncode(objectToSend);
-          print(senderAddress);
-          print(dataToSend);
-          udpSocket.send(Utf8Codec().encode(dataToSend), senderAddress, 2223);
-          break;
-        case RawSocketEvent.closed : 
-          print('Client disconnected.');
-      }
+    Future.wait([RawDatagramSocket.bind(InternetAddress.anyIPv4, 2222)])
+        .then((values) {
+      RawDatagramSocket udpSocket = values[0];
+      udpSocket.listen((RawSocketEvent e) async {
+        print(e);
+
+        switch (e) {
+          case RawSocketEvent.read:
+            Datagram? dg = udpSocket.receive();
+            print('coucou');
+            if (dg != null) {
+              print(Utf8Codec().decode(dg.data));
+              print(dg.address);
+              senderAddress = dg.address;
+              udpSocket.writeEventsEnabled = true;
+            }
+
+            break;
+          case RawSocketEvent.write:
+            final info = NetworkInfo();
+            var ip = await info.getWifiIP();
+            Map<String, dynamic> objectToSend = {
+              "server": true,
+              "name": "Screen phone A",
+              "ip": ip
+            };
+            String dataToSend = jsonEncode(objectToSend);
+            print(senderAddress);
+            print(dataToSend);
+            udpSocket.send(Utf8Codec().encode(dataToSend), senderAddress, 2223);
+            break;
+          case RawSocketEvent.closed:
+            print('Client disconnected.');
+        }
+      });
     });
-  });
+  }
+
+  Future<void> launchGame(GameModel game, MonitorModel monitor) async {
+    var url = "http://${monitor.getIp}:2226/launch/${game.gameId}";
+    var uri = Uri.parse(url); // Replace with your server URL
+    http.Response response = await http.get(uri);
+    
+    String body = response.body;
+    print(body);
+    
+
   }
 }

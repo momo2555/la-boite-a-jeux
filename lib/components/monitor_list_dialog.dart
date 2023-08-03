@@ -88,7 +88,7 @@ class _MonitorListDialogState extends State<MonitorListDialog> {
                       subtitle: SimpleText.simple(monitor.getIp),
                       onTap: () {
                         // TODO begin game controller actions
-                        Navigator.pushNamed(context, "./game_control_screen", arguments:  [widget.game, monitor]);
+                        Navigator.pushNamed(context, "/game_control_screen", arguments:  [widget.game, monitor]);
                         /*Navigator.push(context, MaterialPageRoute(builder: (context){
                                   //return ControllerHome(monitor: monitor, game: widget.game);
                                 }));*/
