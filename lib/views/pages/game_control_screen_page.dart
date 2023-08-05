@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:legendapp/components/simple_text.dart';
+import 'package:legendapp/controllers/monitor_controller.dart';
 import 'package:legendapp/models/game_model.dart';
 import 'package:legendapp/models/monitor_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:webview_flutter_android/webview_flutter_android.dart';
 class GameControlScreenPage extends StatefulWidget {
   const GameControlScreenPage({super.key, required this.game, required this.monitor});
   final GameModel game;
@@ -15,7 +15,7 @@ class GameControlScreenPage extends StatefulWidget {
 }
 
 class _GameControlScreenPageState extends State<GameControlScreenPage> {
-
+  MonitorController _monitorController = MonitorController();
   WebViewController _webViewController = WebViewController();
   void _initWebViewController() {
     _webViewController = WebViewController()
@@ -30,9 +30,6 @@ class _GameControlScreenPageState extends State<GameControlScreenPage> {
       onPageFinished: (String url) {},
       onWebResourceError: (WebResourceError error) {},
       onNavigationRequest: (NavigationRequest request) {
-        if (request.url.startsWith('https://www.youtube.com/')) {
-          return NavigationDecision.prevent;
-        }
         return NavigationDecision.navigate;
       },
     ),
@@ -45,10 +42,10 @@ class _GameControlScreenPageState extends State<GameControlScreenPage> {
     // TODO: implement initState
     super.initState();
     _initWebViewController();
+    _monitorController.launchGame(widget.game, widget.monitor);
   }
   @override
   Widget build(BuildContext context) {
-    print("non mais ho");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

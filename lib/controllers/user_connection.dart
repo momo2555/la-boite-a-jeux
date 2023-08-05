@@ -11,7 +11,6 @@ class UserConnection {
   }
 
   Future<bool> get ifUserConnected async {
-    //
     return false;
   }
 

@@ -67,54 +67,26 @@ class MonitorController {
     monitorsList.add(monitor);
   }
 
-  void runDeviceServer() {
-    InternetAddress senderAddress = InternetAddress.anyIPv4;
-    Future.wait([RawDatagramSocket.bind(InternetAddress.anyIPv4, 2222)])
-        .then((values) {
-      RawDatagramSocket udpSocket = values[0];
-      udpSocket.listen((RawSocketEvent e) async {
-        print(e);
-
-        switch (e) {
-          case RawSocketEvent.read:
-            Datagram? dg = udpSocket.receive();
-            print('coucou');
-            if (dg != null) {
-              print(Utf8Codec().decode(dg.data));
-              print(dg.address);
-              senderAddress = dg.address;
-              udpSocket.writeEventsEnabled = true;
-            }
-
-            break;
-          case RawSocketEvent.write:
-            final info = NetworkInfo();
-            var ip = await info.getWifiIP();
-            Map<String, dynamic> objectToSend = {
-              "server": true,
-              "name": "Screen phone A",
-              "ip": ip
-            };
-            String dataToSend = jsonEncode(objectToSend);
-            print(senderAddress);
-            print(dataToSend);
-            udpSocket.send(Utf8Codec().encode(dataToSend), senderAddress, 2223);
-            break;
-          case RawSocketEvent.closed:
-            print('Client disconnected.');
-        }
-      });
-    });
-  }
+ 
 
   Future<void> launchGame(GameModel game, MonitorModel monitor) async {
-    var url = "http://${monitor.getIp}:2226/launch/${game.gameId}";
-    var uri = Uri.parse(url); // Replace with your server URL
-    http.Response response = await http.get(uri);
-    
-    String body = response.body;
-    print(body);
-    
+    var url = "ws://${monitor.getIp}:2225";
+    var client = await WebSocket.connect(url);
+    Map<String, dynamic> launchGameData = {
+      "header" : {
+        "type" : "request",
+        "from" : "controller"
+      },
+      "request" : {
+        "exec" : "launchGame",
+        "params" : {
+          "game" : game.gameId,
+        }
+      }
+    };
+    client.add(jsonEncode(launchGameData));
+    client.close();
+
 
   }
 }
