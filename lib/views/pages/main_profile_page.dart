@@ -3,7 +3,6 @@ import 'package:legendapp/components/simple_text.dart';
 import 'package:legendapp/components/user_details_bloc.dart';
 import 'package:legendapp/controllers/profile_controller.dart';
 import 'package:legendapp/controllers/residence_controller.dart';
-import 'package:legendapp/controllers/user_connection.dart';
 import 'package:legendapp/models/residence_model.dart';
 import 'package:legendapp/models/user_profile_model.dart';
 import 'package:legendapp/utils/color_utils.dart';

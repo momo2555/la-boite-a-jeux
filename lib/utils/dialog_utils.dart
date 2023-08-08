@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:legendapp/components/action_button.dart';
-import 'package:legendapp/components/simple_text.dart';
 
 class ButtonInfo {
   final String title;

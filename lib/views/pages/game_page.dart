@@ -3,7 +3,6 @@ import 'package:legendapp/components/action_button.dart';
 import 'package:legendapp/components/monitor_list_dialog.dart';
 import 'package:legendapp/components/simple_text.dart';
 import 'package:legendapp/controllers/game_controller.dart';
-import 'package:legendapp/controllers/monitor_controller.dart';
 import 'package:legendapp/models/game_model.dart';
 import 'package:legendapp/utils/color_utils.dart';
 

@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:legendapp/models/game_model.dart';
 import 'package:legendapp/models/monitor_model.dart';
+import 'package:legendapp/utils/request_utils.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:udp/udp.dart';
 
@@ -67,26 +68,33 @@ class MonitorController {
     monitorsList.add(monitor);
   }
 
- 
+  WebSocket? _monitorConnection;
+  bool _monitorConnected = false;
 
   Future<void> launchGame(GameModel game, MonitorModel monitor) async {
-    var url = "ws://${monitor.getIp}:2225";
-    var client = await WebSocket.connect(url);
-    Map<String, dynamic> launchGameData = {
-      "header" : {
-        "type" : "request",
-        "from" : "controller"
-      },
-      "request" : {
-        "exec" : "launchGame",
-        "params" : {
-          "game" : game.gameId,
-        }
-      }
-    };
-    client.add(jsonEncode(launchGameData));
-    client.close();
+    if (!_monitorConnected) {
+      var url = "ws://${monitor.getIp}:2225";
+      _monitorConnection = await WebSocket.connect(url);
+      GameRequest launchGameData = await launchGameRequest(game);
+      _monitorConnection!.add(jsonEncode(launchGameData));
+      _monitorConnected = true;
+    }
+  }
 
+  Future<void> closeGame(GameModel game, MonitorModel monitor) async {
+    if (_monitorConnected && _monitorConnection != null) {
+      GameRequest launchGameData = await closeGameRequest(game);
+      _monitorConnection!.add(jsonEncode(launchGameData));
+      _monitorConnection!.close();
+      _monitorConnected = true;
+    }
+  }
 
+  registerMonitorResponse(Function(dynamic) callback) async {
+    if (_monitorConnection!= null && _monitorConnected) {
+      _monitorConnection!.listen((event) {
+        callback(event);
+      });
+    }
   }
 }

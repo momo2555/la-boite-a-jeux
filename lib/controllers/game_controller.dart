@@ -96,6 +96,7 @@ class GameController {
     game.gameCoverImage = doc.get('gameCoverImage');
     game.gameDescription = doc.get('gameDescription');
     game.gameImage = doc.get('gameImage');
+    game.gameArchive = doc.get('gameArchive');
     game.gameId = doc.id;
     
 
@@ -173,6 +174,13 @@ class GameController {
     }
   }
 
+  Future<String> downloadGameLink(GameModel game) async {
+    String gamePath = "games/${game.gameId}/${game.gameArchive}";
+    String downloadUrl = await _cloudDownloader.getFileDowloadUrl(gamePath);
+    return downloadUrl;
+
+  }
+
   static DecorationImage? decorationCoverImage(GameModel? game) {
     if(game!=null) print(game.gameCoverImage);
     if (game?.gameCoverImageFile != null) {
@@ -185,4 +193,6 @@ class GameController {
       return null;
     }
   }
+
+
 }

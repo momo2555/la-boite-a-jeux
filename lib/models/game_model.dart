@@ -5,10 +5,12 @@ class GameModel {
   late String _gameName;
   late String _gameImage;
   late String _gameCoverImage;
+  late String _gameArchive;
   late String _gameDescription;
   
   File? _gameImageFile;
   File? _gameCoverImageFile;
+  File? _gameArchiveFile;
   //late String monitorPage;
   //late String controllerPage;
   GameModel() {}
@@ -33,6 +35,12 @@ class GameModel {
   set gameCoverImageFile(value) {
     _gameCoverImageFile = value;
   }
+  set gameArchive(value) {
+    _gameArchive = value;
+  }
+  set gameArchiveFile(value) {
+    _gameArchiveFile = value;
+  }
 
 
   get gameId  {
@@ -56,6 +64,12 @@ class GameModel {
   get gameCoverImageFile  {
     return _gameCoverImageFile;
   }
+  get gameArchive {
+    return _gameArchive;
+  }
+  get gameArchiveFile {
+    return _gameArchiveFile;
+  }
 
   Map<String, dynamic> toObject () {
     return {
@@ -64,6 +78,7 @@ class GameModel {
       "gameImage" : _gameImage,
       "gameCoverImage": _gameCoverImage,
       "gameDescription" : _gameDescription,
+      "gameArchive" : _gameArchive,
       
     };
   }

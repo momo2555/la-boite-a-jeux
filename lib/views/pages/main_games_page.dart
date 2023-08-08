@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:legendapp/components/game_tile.dart';
-import 'package:legendapp/components/simple_text.dart';
 import 'package:legendapp/controllers/game_controller.dart';
 import 'package:legendapp/models/game_model.dart';
-import 'package:legendapp/utils/global_utils.dart';
 
 class MainGamesPage extends StatefulWidget {
   const MainGamesPage({super.key});

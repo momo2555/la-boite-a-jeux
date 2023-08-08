@@ -16,6 +16,13 @@ enum LocalSaveMode { cache, userDocuments }
  */
 class CacheStorageController {
   static Map<String, File> tempCache = {};
+  FirebaseStorage fireStorage = FirebaseStorage.instance;
+
+  Future<String> getFileDowloadUrl(String cloudPath) async {
+    Reference downloadRef = fireStorage.ref(cloudPath);
+    String dowloadUrl = await downloadRef.getDownloadURL();
+    return dowloadUrl;
+  }
 
   deleteRefFromTempCache(String ref) {
     if (CacheStorageController.tempCache.containsKey(ref)) {
@@ -26,7 +33,7 @@ class CacheStorageController {
      CacheStorageController.tempCache[ref] = data;
   }
 
-  FirebaseStorage fireStorage = FirebaseStorage.instance;
+  
 
   Future<File> downloadFromCloud(
       String folderPath, String fileName,[ LocalSaveMode mode = LocalSaveMode.userDocuments]) async {
